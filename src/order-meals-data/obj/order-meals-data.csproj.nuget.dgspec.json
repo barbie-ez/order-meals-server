@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\order-meals-api\\order-meals-data\\order-meals-data.csproj": {}
+    "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\src\\order-meals-data\\order-meals-data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\order-meals-api\\order-meals-data\\order-meals-data.csproj": {
+    "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\src\\order-meals-data\\order-meals-data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\order-meals-api\\order-meals-data\\order-meals-data.csproj",
+        "projectUniqueName": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\src\\order-meals-data\\order-meals-data.csproj",
         "projectName": "order-meals-data",
-        "projectPath": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\order-meals-api\\order-meals-data\\order-meals-data.csproj",
+        "projectPath": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\src\\order-meals-data\\order-meals-data.csproj",
         "packagesPath": "C:\\Users\\barezomo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\order-meals-api\\order-meals-data\\obj\\",
+        "outputPath": "C:\\Users\\barezomo\\source\\repos\\order-meals-server\\src\\order-meals-data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
