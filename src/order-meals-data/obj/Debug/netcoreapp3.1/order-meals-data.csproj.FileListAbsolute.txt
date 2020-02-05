@@ -1,0 +1,8 @@
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\bin\Debug\netcoreapp3.1\order-meals-data.deps.json
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\bin\Debug\netcoreapp3.1\order-meals-data.dll
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\obj\Debug\netcoreapp3.1\order-meals-data.csprojAssemblyReference.cache
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\obj\Debug\netcoreapp3.1\order-meals-data.AssemblyInfoInputs.cache
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\obj\Debug\netcoreapp3.1\order-meals-data.AssemblyInfo.cs
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\bin\Debug\netcoreapp3.1\order-meals-data.pdb
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\obj\Debug\netcoreapp3.1\order-meals-data.dll
+C:\Users\barezomo\source\repos\order-meals-server\order-meals-api\order-meals-data\obj\Debug\netcoreapp3.1\order-meals-data.pdb
