@@ -190,6 +190,11 @@ namespace order_meals_data.Repositories.Base.Impl
             return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
         }
 
+        public async Task<T> GetFirstAsync()
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync();
+        }
+
         public async Task<T> GetLastAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).LastOrDefaultAsync();

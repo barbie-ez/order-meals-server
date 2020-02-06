@@ -26,6 +26,7 @@ namespace order_meals_data.Repositories.Base.Interface
         Task<T> GetLastAsync();
         //  Task<T> GetLast(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetFirstAsync(Expression<Func<T, bool>> predicate);
+        Task<T> GetFirstAsync();
         Task<T> GetSingleAsync(Guid id);
         Task<T> GetSingleAsync(Guid id, params Expression<Func<T, object>>[] includeProperties);
 

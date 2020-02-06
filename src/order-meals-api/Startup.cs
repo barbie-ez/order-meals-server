@@ -22,6 +22,7 @@ using order_meals_data.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using AutoMapper;
 
 namespace order_meals_api
 {
@@ -61,6 +62,8 @@ namespace order_meals_api
 
             services.AddControllers();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             var secretSection = Configuration.GetSection("Secret");
             
 
@@ -87,6 +90,7 @@ namespace order_meals_api
            });
 
             services.AddTransient<ITaskRepository, TaskRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
 
             services.AddSwaggerGen(c =>
             {
