@@ -16,7 +16,11 @@ using Microsoft.OpenApi.Models;
 using order_meals_data.Entities;
 using order_meals_data.Repositories.Interface;
 using order_meals_data.Repositories.Impl;
-using Microsoft.AspNetCore.DataProtection;
+
+using System.Text;
+using order_meals_data.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace order_meals_api
 {
@@ -50,9 +54,34 @@ namespace order_meals_api
                 .AddUserManager<UserRepository>()
                 .AddDefaultTokenProviders()
                 ;
+
             services.AddControllers();
+            var secretSection = Configuration.GetSection("Secret");
             services.Configure<Secret>(Configuration);
+
+            var appSettings = secretSection.Get<Secret>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Value);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(key),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+               };
+           });
+
             services.AddTransient<ITaskRepository, TaskRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order Meals API", Version = "v1" });
