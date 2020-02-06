@@ -21,6 +21,7 @@ using System.Text;
 using order_meals_data.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace order_meals_api
 {
@@ -39,6 +40,9 @@ namespace order_meals_api
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Configure<Secret>(Configuration.GetSection("Secret"));
+
             services.AddIdentity<UserModel,RoleModel>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = false;
@@ -56,10 +60,12 @@ namespace order_meals_api
                 ;
 
             services.AddControllers();
+
             var secretSection = Configuration.GetSection("Secret");
-            services.Configure<Secret>(Configuration);
+            
 
             var appSettings = secretSection.Get<Secret>();
+
             var key = Encoding.ASCII.GetBytes(appSettings.Value);
 
             services.AddAuthentication(x =>
@@ -85,6 +91,33 @@ namespace order_meals_api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order Meals API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme="Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
             });
         }
 
