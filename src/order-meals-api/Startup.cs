@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using order_meals_data.Entities;
 using order_meals_data.Repositories.Interface;
 using order_meals_data.Repositories.Impl;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace order_meals_api
 {
@@ -50,6 +51,7 @@ namespace order_meals_api
                 .AddDefaultTokenProviders()
                 ;
             services.AddControllers();
+            services.Configure<Secret>(Configuration);
             services.AddTransient<ITaskRepository, TaskRepository>();
             services.AddSwaggerGen(c =>
             {
