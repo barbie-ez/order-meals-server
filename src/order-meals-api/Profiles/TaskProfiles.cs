@@ -14,6 +14,7 @@ namespace order_meals_api.Profiles
         {
             CreateMap<TaskModel, CreateTaskDTO>();
             CreateMap<CreateTaskDTO, TaskModel>();
+            CreateMap<UpdateTaskDTO, TaskModel>();
         }
     }
 }

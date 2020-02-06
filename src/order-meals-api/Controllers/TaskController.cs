@@ -14,7 +14,7 @@ namespace order_meals_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TaskController: ControllerBase
     {
         ITaskRepository _taskRepository;
@@ -43,17 +43,51 @@ namespace order_meals_api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] CreateTaskDTO taskDTO)
         {
+            if (taskDTO == null)
+            {
+                return BadRequest();
+            }
+
             var taskToAdd = new TaskModel();
 
             _mapper.Map(taskDTO, taskToAdd);
 
             taskToAdd.GroupId = _groupRepository.GetFirstAsync().GetAwaiter().GetResult().Id;
 
-            taskToAdd.OwnerId = _manager.FindByEmailAsync(User.Identity.Name).GetAwaiter().GetResult().Id;
+            //taskToAdd.OwnerId = _manager.FindByEmailAsync(User.Identity.Name).GetAwaiter().GetResult().Id;
+
+            var user = _manager.Users.FirstOrDefault();
+
+            taskToAdd.OwnerId =user.Id;
 
             var tasks = await _taskRepository.AddAsync(taskToAdd);
 
             return new JsonResult(tasks);
+        }
+        
+        [HttpPut]
+        public async Task<IActionResult> UpdateTask([FromBody] UpdateTaskDTO taskDTO)
+        {
+            if (taskDTO == null)
+            {
+                return BadRequest();
+            }
+
+            var taskToUpdate = await _taskRepository.GetFirstAsync(r => r.Id == taskDTO.Id);
+
+            _mapper.Map(taskDTO, taskToUpdate);
+
+            try
+            {
+                await _taskRepository.UpdateAsync(taskToUpdate);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Update of task failed");
+            }
+            
+
+            return NoContent();
         }
     }
 }

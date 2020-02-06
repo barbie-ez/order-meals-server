@@ -34,7 +34,7 @@ namespace order_meals_api
         }
 
         public IConfiguration Configuration { get; }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -87,6 +87,17 @@ namespace order_meals_api
                    ValidateIssuer = false,
                    ValidateAudience = false
                };
+           });
+           services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
            });
 
             services.AddTransient<ITaskRepository, TaskRepository>();
@@ -143,6 +154,7 @@ namespace order_meals_api
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
