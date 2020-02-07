@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using order_meals_data.Entities;
 using order_meals_data.Options;
+using order_meals_data.Response;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,20 +29,20 @@ namespace order_meals_data.Repositories.Impl
         }
 
 
-        public async Task<string> Autheticate(string username, string password)
+        public async Task<ResponseData> Autheticate(string username, string password)
         {
             var user = await FindByEmailAsync(username);
 
             if (user == null)
             {
-                return "User does not exist";
+                return new ResponseData { ErrorMessage = "User does not exist" }; ;
             }
 
             var result = await CheckPasswordAsync(user, password);
 
             if (!result)
             {
-                return "Invalid password";
+                return  new ResponseData { ErrorMessage= "Invalid password" };
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -57,7 +58,7 @@ namespace order_meals_data.Repositories.Impl
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return  tokenHandler.WriteToken(token);
+            return  new ResponseData { UserId=user.Id, Token= tokenHandler.WriteToken(token) } ;
 
 
         }
